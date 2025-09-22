@@ -12,6 +12,25 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+
+import com.pathplanner.lib.auto.AutoBuilder;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.subsystems.DriveTrainSubsystem;
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -27,9 +46,49 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
+  public RobotContainer() 
+  {
     // Configure the trigger bindings
+    configureSubsystems();
     configureBindings();
+
+    //autoChooser = AutoBuilder.buildAutoChooser();
+    //SmartDashboard.putData("Auto Chooser", autoChooser);
+  }
+
+  private void configureSubsystems()
+  {
+    File deployDirectory = Filesystem.getDeployDirectory();
+
+    ObjectMapper mapper = new ObjectMapper();
+    JsonFactory factory = new JsonFactory();
+    try
+    {
+        // Looking for the Subsystems.json file in the deploy directory
+        JsonParser parser =
+        factory.createParser(new File(deployDirectory, Constants.SUBSYSTEMFILE));
+            
+        //SubsystemControls subsystems = mapper.readValue(parser, SubsystemControls.class);
+
+        // Instantiating subsystems if they are present
+        // This is decided by looking at Subsystems.json
+
+        /*
+        if(subsystems.isdrivePresent())
+        {
+          m_DriveTrain = Optional.of(new DriveTrainSubsystem());
+        }
+        */
+            
+        //     Configures the autonomous paths and smartdashboard chooser
+        //     new SK23AutoGenerator(driveSubsystem.get(), armSubsystem, intakeSubsystem);
+        //     autoCommandSelector = AutoBuilder.buildAutoChooser();
+        //     SmartDashboard.putData("Auto Chooser", autoCommandSelector);    
+    }
+    catch (IOException e)
+    {
+      DriverStation.reportError("Failure to read Subsystem Control File!", e.getStackTrace());
+    }
   }
 
   /**
