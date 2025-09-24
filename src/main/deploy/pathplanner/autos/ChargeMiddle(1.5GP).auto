@@ -13,25 +13,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "P2_ToSalvage1_Turnaround"
+            "pathName": "ToSalvage1_Turnaround"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "P2_Turnaround_ScoreFreight8"
+            "pathName": "Turnaround_ScoreFreight8"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "P2_ScoreFreight8_Turnaround"
+            "pathName": "ScoreFreight8_Turnaround"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "P2_Turnaround_ToSalvage2"
+            "pathName": "Turnaround_ToSalvage2"
           }
         }
       ]

@@ -2,7 +2,15 @@
   "robotWidth": 0.711,
   "robotLength": 0.711,
   "holonomicMode": false,
-  "pathFolders": [],
+  "pathFolders": [
+    "ChargeLeft(P1)",
+    "ChargeMiddle(P2)",
+    "ChargeRight(P3)",
+    "Collect Salvage",
+    "Collect Scrap",
+    "Turnaround",
+    "Score Salvage"
+  ],
   "autoFolders": [
     "ChargeLeft(P1)",
     "ChargeMiddle(P2)",

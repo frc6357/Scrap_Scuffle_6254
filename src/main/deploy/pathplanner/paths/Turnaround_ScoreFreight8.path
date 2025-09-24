@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.4077010333666964,
-        "y": 6.998723071832391
+        "x": 2.3092094216165466,
+        "y": 2.2802022849965224
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5824610625087656,
-        "y": 6.491086796705429
+        "x": 2.3008875154669246,
+        "y": 3.5451320197391185
       },
       "isLocked": false,
-      "linkedName": "ScoreFreight8"
+      "linkedName": "ToSalvage1_Turnaround"
     },
     {
       "anchor": {
-        "x": 3.2662286288231166,
-        "y": 5.500779964900369
+        "x": 3.4077010333666964,
+        "y": 6.998723071832391
       },
       "prevControl": {
-        "x": 2.1344493924744774,
-        "y": 5.667218087892817
+        "x": 3.4576324702644303,
+        "y": 6.07499148922431
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ScoreFreight8_Turnaround"
+      "linkedName": "ScoreFreight8"
     }
   ],
   "rotationTargets": [],
@@ -44,8 +44,8 @@
     "velocity": 0,
     "rotation": 0.0
   },
-  "reversed": false,
-  "folder": null,
+  "reversed": true,
+  "folder": "Score Salvage",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

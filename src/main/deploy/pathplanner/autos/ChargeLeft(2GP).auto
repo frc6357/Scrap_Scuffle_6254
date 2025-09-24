@@ -7,19 +7,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "P2_ToSalvage1"
+            "pathName": "P1_ScoreFreight6"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "ToSalvage1_Turnaround"
+            "pathName": "ScoreFreight6_Turnaround"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Turnaround_ScoreFreight8"
+            "pathName": "Turnaround_ToSalvage2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ToSalvage2_Turnaround2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Turnaround_ScoreFreight3"
           }
         }
       ]

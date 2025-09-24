@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9180798325842967,
-        "y": 0.44938293207960683
+        "x": 3.2662286288231166,
+        "y": 5.500779964900369
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9264017387339192,
-        "y": 1.2732516408922223
+        "x": 2.384106576963148,
+        "y": 5.43420471570339
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "ScoreFreight8_Turnaround"
     },
     {
       "anchor": {
-        "x": 2.8917428520901107,
-        "y": 3.1040709938091346
+        "x": 0.8944853761807484,
+        "y": 5.276088498860565
       },
       "prevControl": {
-        "x": 1.9430455510331635,
-        "y": 3.1207148061083796
+        "x": 1.4104435574573337,
+        "y": 5.29273231115981
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ToSalvage1"
+      "linkedName": "Turnaround2_ToSalvage2"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 174.52263127117124
+    "rotation": -75.13171864150179
   },
   "reversed": true,
-  "folder": "ChargeMiddle(P2)",
+  "folder": "Collect Salvage",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0
