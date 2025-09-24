@@ -1,0 +1,31 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "P2_ToSalvage1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "P2_ToSalvage1_Turnaround"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "P2_Turnaround_ScoreFreight8"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

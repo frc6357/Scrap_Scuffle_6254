@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 2.3092094216165466,
+        "y": 2.2802022849965224
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.3008875154669246,
+        "y": 3.5451320197391185
+      },
+      "isLocked": false,
+      "linkedName": "ToSalvage1_Turnaround"
+    },
+    {
+      "anchor": {
+        "x": 3.4077010333666964,
+        "y": 6.998723071832391
+      },
+      "prevControl": {
+        "x": 3.4576324702644303,
+        "y": 6.07499148922431
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ScoreFreight8"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": true,
+  "folder": null,
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "useDefaultConstraints": true
+}
