@@ -29,8 +29,10 @@ import com.pathplanner.lib.config.PIDConstants;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.LimitSwitchConfig.Type;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
@@ -61,7 +63,24 @@ public final class Konstants
     // Constants for the launcher subsystem.
     public static final class LauncherConstants
     {
+        public static final double kLauncherLeftSpeed = 0.5; 
+        public static final double kLauncherRightSpeed = 0.5; 
+        
+        public static final double kSpeedTolerance = 0.03;
+        public static final SparkBaseConfig kLauncherMotorConfigs = 
+            new SparkMaxConfig()
+            .openLoopRampRate(1.2);
+        public static final SparkBaseConfig kLauncherRampDown = 
+            new SparkMaxConfig()
+            .openLoopRampRate(12.0);
+        public static final SparkBaseConfig kLauncherRestRate = 
+            new SparkMaxConfig()
+            .openLoopRampRate(1.0);
+        public static final SparkBaseConfig kLauncherQuickRate = 
+            new SparkMaxConfig()
+            .openLoopRampRate(0.4);
     }
+
 
     // Constants for the climb subsystem.
     public static final class ClimbConstants
