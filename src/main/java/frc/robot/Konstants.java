@@ -44,7 +44,7 @@ public final class Konstants
     // Constants for the intake subsystem.
     public static final class IntakeConstants
     {
-        public static final double kRollerSpeed = 0.6741;
+        public static final double kRollerSpeed = 0.7;
         public static final double kRollerSlowSpeed = 0.50;
         public static final double kRollerSuperSpeed = 0.8;
         public static final double kRollerStop = 0;
