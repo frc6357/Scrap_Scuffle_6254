@@ -23,12 +23,9 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 public class SC25Launcher extends SubsystemBase
 {
     // Create memory objects for both motors for public use.
-    SparkMax leftMotor;
-    SparkMax rightMotor;
-    RelativeEncoder encoderL;
-    RelativeEncoder encoderR;
-    double leftTargetSpeed;
-    double rightTargetSpeed;
+    SparkMax motor;
+    RelativeEncoder motorEncoder;
+    double targetSpeed;
     boolean running;
     private double currentRampRate = 0.0;
 
@@ -36,21 +33,13 @@ public class SC25Launcher extends SubsystemBase
     public SC25Launcher()
     {
         //Initialize motor objects.
-        leftMotor = new SparkMax(kLeftLauncherMotor.ID, MotorType.kBrushless);
-        rightMotor = new SparkMax(kRightLauncherMotor.ID, MotorType.kBrushless);
-
-        encoderL = leftMotor.getEncoder();
-        encoderR = rightMotor.getEncoder();
+        motor = new SparkMax(kLeftLauncherMotor.ID, MotorType.kBrushless);
+        motorEncoder = motor.getEncoder();
     }
 
-    public double getLeftTargetSpeed()
+    public double getTargetSpeed()
     {
-        return leftTargetSpeed;
-    }
-
-    public double getRightTargetSpeed()
-    {
-        return rightTargetSpeed;
+        return targetSpeed;
     }
 
     public void setRunning(boolean running)
@@ -68,57 +57,44 @@ public class SC25Launcher extends SubsystemBase
      * @param speedLeft The speed to set for left. Value should be between -1.0 and 1.0.
      * @param speedRight The speed to set for right. Value should be between -1.0 and 1.0.
      */
-    public void setLauncherSpeed (double speedLeft, double speedRight)
+    public void setLauncherSpeed (double speed)
     {
-        leftTargetSpeed = speedLeft;
-        rightTargetSpeed = speedRight;
-
-        rightMotor.set(speedRight);
-        leftMotor.set(speedLeft);
+        targetSpeed = speed;
+        motor.set(speed);
     }
 
     //Return motor speeds
-    public double getLeftMotorSpeed()
+    public double getMotorSpeed()
     {
-        return leftMotor.get();
-    }
-
-    //Return motor speeds
-    public double getRightMotorSpeed()
-    {
-        return rightMotor.get();
+        return motor.get();
     }
 
     public boolean isFullSpeed()
     {
-        return (Math.abs(getRightMotorSpeed() - getRightTargetSpeed()) < kSpeedTolerance) && (Math.abs(getLeftMotorSpeed() - getLeftTargetSpeed()) < kSpeedTolerance);
+        return (Math.abs(getMotorSpeed()) < kSpeedTolerance) && (Math.abs(getMotorSpeed()) < kSpeedTolerance);
     }
 
     public void setScrapRampRate()
     {
         currentRampRate = 1.2; // This value MUST match the rate from Konstants.
-        leftMotor.configure(kLauncherMotorConfigs, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        rightMotor.configure(kLauncherMotorConfigs, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        motor.configure(kLauncherMotorConfigs, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     public void setRestingRampRate()
     {
         currentRampRate = 1.0; // This value MUST match the rate from Konstants.
-        leftMotor.configure(kLauncherRestRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        rightMotor.configure(kLauncherRestRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        motor.configure(kLauncherRestRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
     public void setQuickRampRate()
     {
         currentRampRate = 0.4; // This value MUST match the rate from Konstants.
-        rightMotor.configure(kLauncherQuickRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        rightMotor.configure(kLauncherQuickRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        motor.configure(kLauncherQuickRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     public void rampDown()
     {
         currentRampRate = 12.0; // This value MUST match the rate from Konstants.
-        rightMotor.configure(kLauncherRampDown, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-        rightMotor.configure(kLauncherRampDown, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        motor.configure(kLauncherRampDown, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
     public double getCurrentRampRate()
@@ -129,20 +105,14 @@ public class SC25Launcher extends SubsystemBase
     // Method to stop motors.
     public void stopLauncher()
     {
-        leftMotor.stopMotor();
-        rightMotor.stopMotor();
+        motor.stopMotor();
     }
 
     public void periodic()
     {
-        
-        SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
-        SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
-
-        SmartDashboard.putNumber("Left Launcher Target Speed", getLeftTargetSpeed());
-        SmartDashboard.putNumber("Right Launcher Target Speed", getRightTargetSpeed());
+        SmartDashboard.putNumber("Current Launcher Speed", getMotorSpeed());
+        SmartDashboard.putNumber("Current Target Launcher Speed", getTargetSpeed());
         SmartDashboard.putBoolean("Launcher Full Speed", isFullSpeed());
-
     }
     
     public void testPeriodic()

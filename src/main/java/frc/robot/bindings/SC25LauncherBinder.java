@@ -40,7 +40,7 @@ public class SC25LauncherBinder implements CommandBinder
             launchScrapButton.onTrue(new LaunchScrapCommandGroup(launcher));
             launchScrapButton.onFalse(new InstantCommand(() -> {
                 launcher.rampDown();
-                launcher.setLauncherSpeed(0.0, 0.0);
+                launcher.setLauncherSpeed(0.0);
             }, launcher));
             
             if (launcherSubsystem.isPresent())
