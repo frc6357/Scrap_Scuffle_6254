@@ -40,4 +40,9 @@ public class SKTrigger
                 button = null;
         }
     }
+
+    public boolean getAsBoolean() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getAsBoolean'");
+    }
 }
