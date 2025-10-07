@@ -6,6 +6,10 @@ import frc.robot.utils.filters.FilteredXboxController;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.AXIS;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.BUTTON;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.POV;
+
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+
 import frc.robot.utils.CANPort;
 import frc.robot.utils.filters.FilteredAxis;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
@@ -67,23 +71,10 @@ public class Ports
         private static final String busName = "DriveCAN";
 
         // CAN IDs for the drive motors on the swerve module.
-        public static final CANPort kFrontLeftDriveMotorPort  = new CANPort(13, busName);
-        public static final CANPort kRearLeftDriveMotorPort   = new CANPort(12, busName);
-        public static final CANPort kFrontRightDriveMotorPort = new CANPort(11, busName);
-        public static final CANPort kRearRightDriveMotorPort  = new CANPort(10, busName);
-
-        // CAN IDs for the turning motors on the swerve module.
-        public static final CANPort kFrontLeftTurningMotorPort  = new CANPort(23, busName);
-        public static final CANPort kRearLeftTurningMotorPort   = new CANPort(22, busName);
-        public static final CANPort kFrontRightTurningMotorPort = new CANPort(21, busName);
-        public static final CANPort kRearRightTurningMotorPort  = new CANPort(20, busName);
-
-        // CAN IDs for the CANCoders.
-        public static final CANPort kFrontLeftTurningEncoderPort  = new CANPort(33, busName);
-        public static final CANPort kRearLeftTurningEncoderPort   = new CANPort(32, busName);
-        public static final CANPort kFrontRightTurningEncoderPort = new CANPort(31, busName);
-        public static final CANPort kRearRightTurningEncoderPort  = new CANPort(30, busName);
-        
+        public static final SparkMax leftLeader   = new SparkMax(10, MotorType.kBrushless);
+        public static final SparkMax leftFollower = new SparkMax(11,  MotorType.kBrushless);
+        public static final SparkMax rightLeader  = new SparkMax(12, MotorType.kBrushless);
+        public static final SparkMax rightFollower= new SparkMax(13,  MotorType.kBrushless);
         // CAN ID for IMU.
         public static final CANPort kPigeonPort = new CANPort(25, busName);
     }

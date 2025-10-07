@@ -12,18 +12,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class SC25Drivetrain extends SubsystemBase {
 
-    private final SparkMax leftLeader   = new SparkMax(kFrontLeftDriveMotorPort.ID, MotorType.kBrushless);
-    private final SparkMax leftFollower = new SparkMax(kRearLeftDriveMotorPort.ID,  MotorType.kBrushless);
-    private final SparkMax rightLeader  = new SparkMax(kFrontRightDriveMotorPort.ID, MotorType.kBrushless);
-    private final SparkMax rightFollower= new SparkMax(kRearRightDriveMotorPort.ID,  MotorType.kBrushless);
+    
 
     private final DifferentialDrive diffDrive = new DifferentialDrive(leftLeader, rightLeader);
 
     public SC25Drivetrain() {
         // build a base config we can clone into each motor config
         SparkMaxConfig base = new SparkMaxConfig();
-        base.smartCurrentLimit(30);           // keep motors safe, can tune higher later
-        base.idleMode(IdleMode.kBrake);       // brake mode = robot resists motion when stopped
+        base.smartCurrentLimit(30);
+        base.idleMode(IdleMode.kBrake);
         base.openLoopRampRate(0.12);          // ramp inputs so it doesn’t jerk
 
         // configs for leaders
