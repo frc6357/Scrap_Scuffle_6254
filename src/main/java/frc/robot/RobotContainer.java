@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import static frc.robot.Konstants.OIConstants.kSlowModePercent;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,8 +26,11 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
+import frc.robot.commands.DriveCommand;
+import frc.robot.subsystems.SC25Drivetrain;
 import frc.robot.utils.SK25AutoBuilder;
 import frc.robot.utils.SubsystemControls;
 import frc.robot.utils.filters.FilteredJoystick;
@@ -41,11 +46,10 @@ public class RobotContainer {
 
   // Make your list of subsystem containers here
   // ex: public Optional<SKVision> m_visionContainer = Optional.empty();
+  private final CommandXboxController m_driverController =
+      new CommandXboxController(0);
 
-  // Then make static references to each subsystem you've added
-  // ex: public static SKVision m_vision;
-
-
+  public final SC25Drivetrain m_drive = new SC25Drivetrain();
 
   // The list containing all the command binding classes
   private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
@@ -116,6 +120,16 @@ public class RobotContainer {
         {
             subsystemGroup.bindButtons();
         }
+
+        m_drive.setDefaultCommand(new DriveCommand(m_drive,
+        () -> -m_driverController.getLeftY(),
+        () -> -m_driverController.getRightX(),
+        () -> true));
+
+        m_driverController.leftBumper().whileTrue(new DriveCommand(m_drive, 
+        () -> -m_driverController.getLeftY() * kSlowModePercent,  
+        () -> -m_driverController.getRightX() * kSlowModePercent,
+        () -> true));
 
     }
 

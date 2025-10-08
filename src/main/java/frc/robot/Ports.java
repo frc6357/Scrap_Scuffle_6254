@@ -71,10 +71,10 @@ public class Ports
         private static final String busName = "DriveCAN";
 
         // CAN IDs for the drive motors on the swerve module.
-        public static final SparkMax leftLeader   = new SparkMax(10, MotorType.kBrushless);
-        public static final SparkMax leftFollower = new SparkMax(11,  MotorType.kBrushless);
-        public static final SparkMax rightLeader  = new SparkMax(12, MotorType.kBrushless);
-        public static final SparkMax rightFollower= new SparkMax(13,  MotorType.kBrushless);
+        public static final CANPort kLeftLeader = new CANPort(10, busName);
+        public static final CANPort kLeftFollower = new CANPort(11, busName);
+        public static final CANPort kRightLeader = new CANPort(12, busName);
+        public static final CANPort kRightFollower = new CANPort(13, busName);
         // CAN ID for IMU.
         public static final CANPort kPigeonPort = new CANPort(25, busName);
     }
