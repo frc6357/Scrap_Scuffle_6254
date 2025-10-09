@@ -68,7 +68,7 @@ public class Ports
     */
     public static class drivePorts
     {
-        private static final String busName = "DriveCAN";
+        private static final String busName = "";
 
         // CAN IDs for the drive motors on the swerve module.
         public static final CANPort kLeftLeader = new CANPort(10, busName);
@@ -76,7 +76,6 @@ public class Ports
         public static final CANPort kRightLeader = new CANPort(12, busName);
         public static final CANPort kRightFollower = new CANPort(13, busName);
         // CAN ID for IMU.
-        public static final CANPort kPigeonPort = new CANPort(25, busName);
     }
 
     //Assign CAN ports to climb motors.

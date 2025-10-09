@@ -11,7 +11,6 @@ public class DriveCommand extends Command {
   private final DoubleSupplier m_xSpeed;
   private final DoubleSupplier m_zRotation;
   private final SC25Drivetrain m_drive;
-  private final BooleanSupplier m_squared;
 
   /**
    * Used to drive the robot, uses arcade drive by default, you will need to modify
@@ -23,12 +22,11 @@ public class DriveCommand extends Command {
    * @param squareInputs Square the inputs from the controller
    */
   public DriveCommand(SC25Drivetrain driveSubsystem, 
-      DoubleSupplier xSpeed, DoubleSupplier zRotation, BooleanSupplier squareInputs) {
+      DoubleSupplier xSpeed, DoubleSupplier zRotation) {
     // Save parameters to local variables for use later
     m_xSpeed = xSpeed;
     m_zRotation = zRotation;
     m_drive = driveSubsystem;
-    m_squared = squareInputs;
 
     // Declare subsystems required by this command. This should include any
     // subsystem this command sets and output of
@@ -45,7 +43,7 @@ public class DriveCommand extends Command {
   @Override
   public void execute() 
   {
-    m_drive.driveArcade(m_xSpeed.getAsDouble(), m_zRotation.getAsDouble(), m_squared.getAsBoolean());
+    m_drive.driveArcade(m_xSpeed.getAsDouble(), m_zRotation.getAsDouble());
   }
 
   // Runs each time the command ends via isFinished or being interrupted.

@@ -41,95 +41,37 @@ import frc.robot.utils.filters.FilteredJoystick;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
-public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-
-  // Make your list of subsystem containers here
-  // ex: public Optional<SKVision> m_visionContainer = Optional.empty();
-  private final CommandXboxController m_driverController =
+public class RobotContainer 
+{
+    public final SC25Drivetrain m_drive = new SC25Drivetrain();
+    private final CommandXboxController m_driverController =
       new CommandXboxController(0);
 
-  public final SC25Drivetrain m_drive = new SC25Drivetrain();
+    // An option box on shuffleboard to choose the auto path
+    SendableChooser<Command> autoCommandSelector = new SendableChooser<Command>();
 
-  // The list containing all the command binding classes
-  private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
-
-  // An option box on shuffleboard to choose the auto path
-  SendableChooser<Command> autoCommandSelector = new SendableChooser<Command>();
-
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {
-
-    // Creates all subsystems that are on the robot
-    configureSubsystems();
-
-    // sets up autos needed for pathplanner
-    configurePathPlannerCommands();
-
-    // Configure the trigger bindings
-    configureButtonBindings();
-  }
-
-  /**
-     * Will create all the optional subsystems using the json file in the deploy directory
-     */
-    private void configureSubsystems()
+    /** The container for the robot. Contains subsystems, OI devices, and commands. */
+    public RobotContainer() 
     {
-        File deployDirectory = Filesystem.getDeployDirectory();
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonFactory factory = new JsonFactory();
-
-        try
-        {
-            // Looking for the Subsystems.json file in the deploy directory
-            JsonParser parser =
-                    factory.createParser(new File(deployDirectory, Konstants.SUBSYSTEMFILE));
-            SubsystemControls subsystems = mapper.readValue(parser, SubsystemControls.class);
-
-            // ex:
-            // if(subsystems.isVisionPresent())
-            // {
-            //     m_visionContainer = Optional.of(new SKVision());
-            //     m_vision = m_visionContainer.get();
-            // }
-        }
-        catch (IOException e)
-        {
-            DriverStation.reportError("Failure to read Subsystem Control File!", e.getStackTrace());
-        }
+        configurePathPlannerCommands();
+        configureBindings();
     }
 
-  /**
+    /**
      * Use this method to define your button->command mappings. Buttons can be created by
      * instantiating a {@link edu.wpi.first.wpilibj.GenericHID} or one of its subclasses
      * ({@link edu.wpi.first.wpilibj.Joystick} or {@link FilteredJoystick}), and then
      * calling passing it to a {@link JoystickButton}.
      */
-    private void configureButtonBindings()
+    private void configureBindings()
     {
-
-        // ex: buttonBinders.add(new SKVisionBinder(m_visionContainer))
-        // Note: if your subsystem binder interacts/controls other subsystems, you can add its 
-        //       respective container reference into the binder constructor.
-        // ex: buttonBinders.add(new SKVisionBinder(m_visionContainer, m_driveContainer, m_launcherContainer))
-
-
-        // Traversing through all the binding classes to actually bind the buttons
-        for (CommandBinder subsystemGroup : buttonBinders)
-        {
-            subsystemGroup.bindButtons();
-        }
-
         m_drive.setDefaultCommand(new DriveCommand(m_drive,
         () -> -m_driverController.getLeftY(),
-        () -> -m_driverController.getRightX(),
-        () -> true));
+        () -> -m_driverController.getRightX()));
 
         m_driverController.leftBumper().whileTrue(new DriveCommand(m_drive, 
         () -> -m_driverController.getLeftY() * kSlowModePercent,  
-        () -> -m_driverController.getRightX() * kSlowModePercent,
-        () -> true));
+        () -> -m_driverController.getRightX() * kSlowModePercent));
 
     }
 

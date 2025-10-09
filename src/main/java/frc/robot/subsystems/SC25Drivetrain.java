@@ -26,19 +26,24 @@ public class SC25Drivetrain extends SubsystemBase {
 
     public SC25Drivetrain() 
     {
-        leftLeader = new SparkMax(kLeftLeader.ID, MotorType.kBrushless);
-        leftFollower = new SparkMax(kLeftFollower.ID,  MotorType.kBrushless);
-        rightLeader  = new SparkMax(kRightLeader.ID, MotorType.kBrushless);
-        rightFollower = new SparkMax(kRightFollower.ID,  MotorType.kBrushless);
+        leftLeader = new SparkMax(kLeftLeader.ID, MotorType.kBrushed);
+        leftFollower = new SparkMax(kLeftFollower.ID,  MotorType.kBrushed);
+        rightLeader  = new SparkMax(kRightLeader.ID, MotorType.kBrushed);
+        rightFollower = new SparkMax(kRightFollower.ID,  MotorType.kBrushed);
 
         diffDrive = new DifferentialDrive(leftLeader, rightLeader);
 
+        leftLeader.setCANTimeout(250);
+        rightLeader.setCANTimeout(250);
+        leftFollower.setCANTimeout(250);
+        rightFollower.setCANTimeout(250);
+
         // build a base config we can clone into each motor config
         SparkMaxConfig base = new SparkMaxConfig();
-        base.smartCurrentLimit(30);
+        base.voltageCompensation(12);
+        base.smartCurrentLimit(80);
         base.idleMode(IdleMode.kBrake);
-        base.openLoopRampRate(0.12);
-
+        base.inverted(false);
         // Set configuration to follow leader and then apply it to corresponding
         // follower. Resetting in case a new controller is swapped
         // in and persisting in case of a controller reset due to breaker trip
@@ -54,20 +59,11 @@ public class SC25Drivetrain extends SubsystemBase {
         // so that postive values drive both sides forward
         base.inverted(true);
         leftLeader.configure(base, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-        // diff drive setup so WPILib arcade/tank calls behave right
-        diffDrive.setDeadband(0.06);          // ignore tiny joystick noise
-        //diffDrive.setSafetyEnabled(true);     // enables watchdog safety
     }
 
     // one stick controls forward + turning
-    public void driveArcade(double xSpeed, double zRotation, boolean squared) 
+    public void driveArcade(double xSpeed, double zRotation) 
     {
-        diffDrive.arcadeDrive(xSpeed, zRotation, squared);
-    }
-
-    // kill all motion
-    public void stop() {
-        diffDrive.stopMotor();
+        diffDrive.arcadeDrive(xSpeed, zRotation);
     }
 }
