@@ -116,14 +116,6 @@ public final class Konstants
             .openLoopRampRate(0.4);
     }
 
-
-    // Constants for the climb subsystem.
-    public static final class ClimbConstants
-    {
-        public static final double kCLimbRollerSpeed = 0.7;
-        public static final double kClimbRollerStop = 0;
-    }
-
     public static final class ExampleConstants
     {
         //percentage based where 1.0 is max power and 0.0 is minimum

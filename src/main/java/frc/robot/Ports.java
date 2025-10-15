@@ -14,8 +14,6 @@ import frc.robot.utils.filters.FilteredAxis;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
 import static edu.wpi.first.wpilibj.XboxController.Axis.*;
 
-
-
 public class Ports
 {
     // Ports associated with the driver controller.
@@ -34,11 +32,6 @@ public class Ports
         // Intake
         public static final SKTrigger kIntake = new SKTrigger(kDriver, kRightTrigger.value, AXIS);
         public static final SKTrigger kEject = new SKTrigger(kDriver, kLeftTrigger.value, AXIS);
-
-        // Climb
-        public static final SKTrigger kClimbUp = new SKTrigger(kDriver, kY.value, BUTTON);
-        public static final SKTrigger kClimbDown = new SKTrigger(kDriver, kX.value, BUTTON);
-        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kDriver.getRawAxis(kRightY.value));
     }
 
     // Ports associated with the operator controller.
@@ -59,11 +52,6 @@ public class Ports
 
         // Launcher
         public static final SKTrigger kLaunchScrap = new SKTrigger(kOperator, kRightBumper.value, BUTTON);
-
-        // Climb
-        public static final SKTrigger kClimbUp = new SKTrigger(kOperator, kY.value, BUTTON);
-        public static final SKTrigger kClimbDown = new SKTrigger(kOperator, kX.value, BUTTON);
-        public static final FilteredAxis kClimbAxis = new FilteredAxis(() -> kOperator.getRawAxis(kRightY.value));
     }
 
     /* 
@@ -84,7 +72,7 @@ public class Ports
         //public static final CANPort kPigeonPort = new CANPort(25, busName);
     }
 
-    //Assign CAN ports to climb motors.
+    //Assign CAN ports to intake motors.
     public static class intakePorts 
     {
         private static final String busName = "";
@@ -98,12 +86,5 @@ public class Ports
         private static final String busName = "";
         public static final CANPort kLeftLauncherMotor = new CANPort(50, busName);
         public static final CANPort kRightLauncherMotor = new CANPort(50, busName);
-    }
-
-    //Assign CAN ports to climb motors.
-    public static class climbPorts
-    {
-        private static final String busName = "";
-        public static final CANPort kClimbMotor = new CANPort(60, busName);
     }
 }
