@@ -1,35 +1,47 @@
-/*
+
 package frc.robot.bindings;
 
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Ports;
+import frc.robot.commands.DriveCommand;
+import frc.robot.commands.IntakeRollerCommand;
 import frc.robot.subsystems.SC25Drivetrain;
+import frc.robot.subsystems.SC25Intake;
+import frc.robot.subsystems.SC25Launcher;
 
-import static frc.robot.Ports.DriverPorts.*;   
+import static frc.robot.Ports.DriverPorts.*;
+
+import java.util.Optional;
+
 import static frc.robot.Konstants.OIConstants.*;
 
-public class SC25DrivetrainBinder {
+public class SC25DrivetrainBinder implements CommandBinder{
 
-    private final SC25Drivetrain drive;
+    Optional<SC25Drivetrain> driveSubsystem;
 
-    public SC25DrivetrainBinder(SC25Drivetrain drive) {
-        this.drive = drive;
+    Trigger slowMode;
 
-        drive.setDefaultCommand(new RunCommand(() -> {
-            double fwd = -kDriver.getRawAxis(1);  
-            double rot =  kDriver.getRawAxis(4);  
+    public SC25DrivetrainBinder(Optional<SC25Drivetrain> driveSubsystem) 
+    {
+        this.driveSubsystem = driveSubsystem;
+        this.slowMode = Ports.DriverPorts.kSlowMode.button;
+    }
 
-            // apply deadband before scaling so tiny noise doesn’t move the robot
-            fwd = (Math.abs(fwd) > kJoystickDeadband) ? fwd * kDriveCoeff : 0.0;
-            rot = (Math.abs(rot) > kJoystickDeadband) ? rot * kRotationCoeff : 0.0;
+    @Override
+    public void bindButtons() 
+    {
+        if (driveSubsystem.isPresent())
+        {
+            SC25Drivetrain drive = driveSubsystem.get();
 
-            // slow mode toggle comes from Ports (LB bumper)
-            // when pressed, drop both linear and rotational speed multipliers
-            double slow    = kSlowMode.getAsBoolean() ? kSlowModePercent : 1.0;
-            double slowRot = kSlowMode.getAsBoolean() ? kSlowModeRotationPercent : 1.0;
+            drive.setDefaultCommand(new DriveCommand(drive, 
+                () -> {return Ports.DriverPorts.kTranslationXPort.getFilteredAxis();},
+                () -> {return Ports.DriverPorts.kTranslationYPort.getFilteredAxis();}));
 
-            // final drive call
-            drive.driveArcade(fwd * slow, rot * slowRot);
-        }, drive));
+            slowMode.whileTrue(new DriveCommand(drive,
+                () -> Ports.DriverPorts.kTranslationXPort.getFilteredAxis() * kSlowModePercent,
+                () -> Ports.DriverPorts.kTranslationYPort.getFilteredAxis() * kSlowModePercent));
+        }
     }
 }
-*/

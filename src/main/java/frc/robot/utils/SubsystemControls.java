@@ -11,6 +11,7 @@ public class SubsystemControls
 
     private final boolean intake;
     private final boolean launcher;
+    private final boolean drive;
 
      /**  
      * @param intake
@@ -21,12 +22,14 @@ public class SubsystemControls
     public SubsystemControls
     (
         @JsonProperty(required = true, value = "intake")      boolean intake,
-        @JsonProperty(required = true, value = "launcher")      boolean launcher
+        @JsonProperty(required = true, value = "launcher")      boolean launcher,
+        @JsonProperty(required = true, value = "drive")      boolean drive
     )
 
     {
         this.intake = intake;
         this.launcher = launcher;
+        this.drive = drive;
     }
 
 
@@ -42,5 +45,8 @@ public class SubsystemControls
     }
     public boolean isLauncherPresent() {
         return launcher;
+    }
+    public boolean isDrivePresent() {
+        return drive;
     }
 }

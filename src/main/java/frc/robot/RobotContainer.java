@@ -33,6 +33,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SC25IntakeBinder;
 import frc.robot.bindings.SC25LauncherBinder;
+import frc.robot.bindings.SC25DrivetrainBinder;
 import frc.robot.subsystems.SC25Intake;
 import frc.robot.subsystems.SC25Launcher;
 import frc.robot.commands.DriveCommand;
@@ -51,32 +52,27 @@ public class RobotContainer extends Robot
 {
     public Optional<SC25Intake> m_intakeContainer = Optional.empty();
     public Optional<SC25Launcher> m_launcherContainer = Optional.empty();
+    public Optional<SC25Drivetrain> m_driveContainer = Optional.empty();
 
     public static SC25Intake m_intake;
     public static SC25Launcher m_launcher;
+    public static SC25Drivetrain m_drive;
 
     // The list containing all the command binding classes
     private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
-
-    public final SC25Drivetrain m_drive = new SC25Drivetrain();
-    private final CommandXboxController m_driverController =
-      new CommandXboxController(0);
 
     // An option box on shuffleboard to choose the auto path
     SendableChooser<Command> autoCommandSelector = new SendableChooser<Command>();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer() {
-
+    public RobotContainer() 
+    {
         // Creates all subsystems that are on the robot
         configureSubsystems();
-
         // sets up autos needed for pathplanner
         configurePathPlannerCommands();
-
         // Configure the trigger bindings
         configureButtonBindings();
-
         autoCommandSelector = AutoBuilder.buildAutoChooser("Taxi");
         //set delete old files = true in build.gradle to prevent sotrage of unused orphans
         SmartDashboard.putData("Select an Auto", autoCommandSelector);
@@ -88,13 +84,11 @@ public class RobotContainer extends Robot
     private void configureSubsystems()
     {
         File deployDirectory = Filesystem.getDeployDirectory();
-
         ObjectMapper mapper = new ObjectMapper();
         JsonFactory factory = new JsonFactory();
 
         try
         {
-            // Looking for the Subsystems.json file in the deploy directory
             JsonParser parser =
                     factory.createParser(new File(deployDirectory, Konstants.SUBSYSTEMFILE));
             SubsystemControls subsystems = mapper.readValue(parser, SubsystemControls.class);
@@ -109,13 +103,17 @@ public class RobotContainer extends Robot
                 m_launcherContainer = Optional.of(new SC25Launcher());
                 m_launcher = m_launcherContainer.get();
             }
+            if(subsystems.isDrivePresent())
+            {
+                m_driveContainer = Optional.of(new SC25Drivetrain());
+                m_drive = m_driveContainer.get();
+            }
         }
         catch (IOException e)
         {
             DriverStation.reportError("Failure to read Subsystem Control File!", e.getStackTrace());
         }
     }
-    /** The container for the robot. Contains subsystems, OI devices, and commands. */
 
     /**
      * Use this method to define your button->command mappings. Buttons can be created by
@@ -127,19 +125,12 @@ public class RobotContainer extends Robot
     {
         buttonBinders.add(new SC25IntakeBinder(m_intakeContainer));
         buttonBinders.add(new SC25LauncherBinder(m_launcherContainer));
-        // Traversing through all the binding classes to actually bind the buttons
+        buttonBinders.add(new SC25DrivetrainBinder(m_driveContainer));
+
         for (CommandBinder subsystemGroup : buttonBinders)
         {
             subsystemGroup.bindButtons();
         }
-        m_drive.setDefaultCommand(new DriveCommand(m_drive,
-        () -> -m_driverController.getLeftY(),
-        () -> -m_driverController.getRightX()));
-
-        m_driverController.leftBumper().whileTrue(new DriveCommand(m_drive, 
-        () -> -m_driverController.getLeftY() * kSlowModePercent,  
-        () -> -m_driverController.getRightX() * kSlowModePercent));
-
     }
 
     private void configurePathPlannerCommands()

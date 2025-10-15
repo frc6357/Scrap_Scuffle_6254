@@ -98,7 +98,8 @@ public final class Konstants
     // Constants for the launcher subsystem.
     public static final class LauncherConstants
     {
-        public static final double kLauncherSpeed = 0.5; 
+        public static final double kLauncherLeftSpeed = 0.5; 
+        public static final double kLauncherRightSpeed = 0.5; 
         
         public static final double kSpeedTolerance = 0.03;
         public static final SparkBaseConfig kLauncherMotorConfigs = 
@@ -140,7 +141,6 @@ public final class Konstants
         public static final double kSlowModeRotationPercent = 0.5;
         public static final double kAccelLimit = 2;
     }   
-    public static final String kCANivoreName = "SwerveCANivore";
 
     // The file that is used for system instantiation at runtime
     public static final String SUBSYSTEMFILE = "Subsystems.json";
