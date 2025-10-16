@@ -5,16 +5,15 @@ import static frc.robot.Konstants.LauncherConstants.kLauncherMotorConfigs;
 import static frc.robot.Konstants.LauncherConstants.kLauncherRampDown;
 import static frc.robot.Konstants.LauncherConstants.kLauncherRestRate;
 import static frc.robot.Konstants.LauncherConstants.kLauncherQuickRate;
-import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
-import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kLauncherMotor;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkBaseConfigAccessor;
-import com.revrobotics.spark.config.SparkMaxConfig;
+// import com.revrobotics.spark.config.SparkBaseConfig;
+// import com.revrobotics.spark.config.SparkBaseConfigAccessor;
+// import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -33,7 +32,7 @@ public class SC25Launcher extends SubsystemBase
     public SC25Launcher()
     {
         //Initialize motor objects.
-        motor = new SparkMax(kLeftLauncherMotor.ID, MotorType.kBrushless);
+        motor = new SparkMax(kLauncherMotor.ID, MotorType.kBrushless);
         motorEncoder = motor.getEncoder();
     }
 

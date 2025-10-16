@@ -3,16 +3,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.utils.SKTrigger;
 import frc.robot.utils.filters.FilteredXboxController;
-
 import static frc.robot.Konstants.IntakeConstants.kJoystickDeadband;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.AXIS;
 import static frc.robot.utils.SKTrigger.INPUT_TYPE.BUTTON;
-import static frc.robot.utils.SKTrigger.INPUT_TYPE.POV;
 import frc.robot.utils.CANPort;
 import frc.robot.utils.filters.DeadbandFilter;
 import frc.robot.utils.filters.FilteredAxis;
 import static edu.wpi.first.wpilibj.XboxController.Button.*;
 import static edu.wpi.first.wpilibj.XboxController.Axis.*;
+// import static frc.robot.utils.SKTrigger.INPUT_TYPE.POV;
 
 public class Ports
 {
@@ -85,7 +84,6 @@ public class Ports
     public static class launcherPorts
     {
         private static final String busName = "";
-        public static final CANPort kLeftLauncherMotor = new CANPort(50, busName);
-        public static final CANPort kRightLauncherMotor = new CANPort(51, busName);
+        public static final CANPort kLauncherMotor = new CANPort(50, busName);
     }
 }
