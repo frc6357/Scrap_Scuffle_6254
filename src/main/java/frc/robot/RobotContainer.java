@@ -64,7 +64,7 @@ public class RobotContainer extends Robot
         // Creates all subsystems that are on the robot
         configureSubsystems();
         // sets up autos needed for pathplanner
-        //configurePathPlannerCommands();
+        configurePathPlannerCommands();
         // Configure the trigger bindings
         configureButtonBindings();
     }
