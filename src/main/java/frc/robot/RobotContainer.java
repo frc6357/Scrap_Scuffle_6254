@@ -4,24 +4,18 @@
 
 package frc.robot;
 
-import static frc.robot.Konstants.OIConstants.kSlowModePercent;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.ctre.phoenix6.Utils;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -62,7 +56,7 @@ public class RobotContainer extends Robot
     private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
 
     // An option box on shuffleboard to choose the auto path
-    SendableChooser<Command> autoCommandSelector = new SendableChooser<Command>();
+    //SendableChooser<Command> autoCommandSelector = new SendableChooser<Command>();
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
@@ -70,12 +64,9 @@ public class RobotContainer extends Robot
         // Creates all subsystems that are on the robot
         configureSubsystems();
         // sets up autos needed for pathplanner
-        configurePathPlannerCommands();
+        //configurePathPlannerCommands();
         // Configure the trigger bindings
         configureButtonBindings();
-        autoCommandSelector = AutoBuilder.buildAutoChooser("Taxi");
-        //set delete old files = true in build.gradle to prevent sotrage of unused orphans
-        SmartDashboard.putData("Select an Auto", autoCommandSelector);
     }
 
     /**
@@ -91,7 +82,7 @@ public class RobotContainer extends Robot
         {
             JsonParser parser =
                     factory.createParser(new File(deployDirectory, Konstants.SUBSYSTEMFILE));
-            SubsystemControls subsystems = mapper.readValue(parser, SubsystemControls.class);
+                    SubsystemControls subsystems = mapper.readValue(parser, SubsystemControls.class);
             
             if(subsystems.isIntakePresent())
             {
@@ -133,24 +124,7 @@ public class RobotContainer extends Robot
         }
     }
 
-    private void configurePathPlannerCommands()
-    {
-        // Always check to see if the drivetrain is present for auto
-        // It's kinda useless to create autonomous commands if there's no drivebase
-        // to move the robot around the field...
-
-        /* ex:
-         * Nest the other subsystem checking if-statements inside the drivetrain if-statement
-         * 
-         * if(m_driveContainer.isPresent()) {
-         *      if(m_launcherContainer.isPresent()) {
-         *            // This line configures a launching command to be used in autonomous and feeds in
-         *            // a medium motor speed value
-         *            NamedCommands.registerCommand("RunLauncherMediumCommand", new RunLauncherCommand(kMediumSpeed));
-         *      }
-         * }
-         */
-    }
+    private void configurePathPlannerCommands(){}
 
   /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -161,32 +135,32 @@ public class RobotContainer extends Robot
      *
      * @return the command to run in autonomous
      */
-    public Command getAutonomousCommand()
-    {
-        return Commands.sequence(Commands.waitSeconds(0.01), autoCommandSelector.getSelected());
-    }
+    // public Command getAutonomousCommand()
+    // {
+    //     return Commands.sequence(Commands.waitSeconds(0.01), autoCommandSelector.getSelected());
+    // }
 
     public void testPeriodic()
     {
-        if(m_intakeContainer.isPresent())
-        {
-            m_intakeContainer.get().testPeriodic();
-        }
-        if(m_launcherContainer.isPresent())
-        {
-            m_launcherContainer.get().testPeriodic();
-        }
+        // if(m_intakeContainer.isPresent())
+        // {
+        //     m_intakeContainer.get().testPeriodic();
+        // }
+        // if(m_launcherContainer.isPresent())
+        // {
+        //     m_launcherContainer.get().testPeriodic();
+        // }
     }
     public void testInit()
     {
-        if(m_intakeContainer.isPresent())
-        {
-            m_intakeContainer.get().testInit();
-        }
-        if(m_launcherContainer.isPresent())
-        {
-            m_launcherContainer.get().testInit();
-        }
+        // if(m_intakeContainer.isPresent())
+        // {
+        //     m_intakeContainer.get().testInit();
+        // }
+        // if(m_launcherContainer.isPresent())
+        // {
+        //     m_launcherContainer.get().testInit();
+        // }
     }
 
     public void matchInit()
@@ -200,9 +174,6 @@ public class RobotContainer extends Robot
     }
     public void autonomousInit()
     {
-        if(m_intakeContainer.isPresent())
-        {
-            m_intakeContainer.get().leave();
-        }
+        
     }
 }

@@ -85,6 +85,6 @@ public class Ports
     {
         private static final String busName = "";
         public static final CANPort kLeftLauncherMotor = new CANPort(50, busName);
-        public static final CANPort kRightLauncherMotor = new CANPort(50, busName);
+        public static final CANPort kRightLauncherMotor = new CANPort(51, busName);
     }
 }

@@ -98,8 +98,7 @@ public final class Konstants
     // Constants for the launcher subsystem.
     public static final class LauncherConstants
     {
-        public static final double kLauncherLeftSpeed = 0.5; 
-        public static final double kLauncherRightSpeed = 0.5; 
+        public static final double kLauncherSpeed = 0.7; 
         
         public static final double kSpeedTolerance = 0.03;
         public static final SparkBaseConfig kLauncherMotorConfigs = 

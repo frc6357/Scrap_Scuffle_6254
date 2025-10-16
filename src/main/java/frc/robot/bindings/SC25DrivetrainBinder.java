@@ -31,17 +31,18 @@ public class SC25DrivetrainBinder implements CommandBinder{
     @Override
     public void bindButtons() 
     {
-        if (driveSubsystem.isPresent())
+        if (!driveSubsystem.isPresent())
         {
-            SC25Drivetrain drive = driveSubsystem.get();
-
-            drive.setDefaultCommand(new DriveCommand(drive, 
-                () -> {return Ports.DriverPorts.kTranslationXPort.getFilteredAxis();},
-                () -> {return Ports.DriverPorts.kTranslationYPort.getFilteredAxis();}));
-
-            slowMode.whileTrue(new DriveCommand(drive,
-                () -> Ports.DriverPorts.kTranslationXPort.getFilteredAxis() * kSlowModePercent,
-                () -> Ports.DriverPorts.kTranslationYPort.getFilteredAxis() * kSlowModePercent));
+            return;
         }
+        SC25Drivetrain drive = driveSubsystem.get();
+
+        drive.setDefaultCommand(new DriveCommand(drive, 
+            () -> {return Ports.DriverPorts.kTranslationXPort.getFilteredAxis();},
+            () -> {return Ports.DriverPorts.kTranslationYPort.getFilteredAxis();}));
+
+        slowMode.whileTrue(new DriveCommand(drive,
+            () -> Ports.DriverPorts.kTranslationXPort.getFilteredAxis() * kSlowModePercent,
+            () -> Ports.DriverPorts.kTranslationYPort.getFilteredAxis() * kSlowModePercent));
     }
 }

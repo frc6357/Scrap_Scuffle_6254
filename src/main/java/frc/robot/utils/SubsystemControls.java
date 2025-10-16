@@ -18,6 +18,8 @@ public class SubsystemControls
      *            indicates if the intake subsystem is present and should be enabled
      * @param launcher
      *            indicates if the launcher subsystem is present and should be enabled
+     * @param drive
+     *            indicates if the launcher subsystem is present and should be enabled
      */
     public SubsystemControls
     (
