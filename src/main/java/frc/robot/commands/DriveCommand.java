@@ -19,7 +19,6 @@ public class DriveCommand extends Command {
    * @param driveSubsystem 
    * @param xSpeed The speed forwards and backwards
    * @param zRotation The speed to turn the drivetrain at
-   * @param squareInputs Square the inputs from the controller
    */
   public DriveCommand(SC25Drivetrain driveSubsystem, 
       DoubleSupplier xSpeed, DoubleSupplier zRotation) {

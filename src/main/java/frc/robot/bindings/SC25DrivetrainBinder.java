@@ -38,11 +38,11 @@ public class SC25DrivetrainBinder implements CommandBinder{
         SC25Drivetrain drive = driveSubsystem.get();
 
         drive.setDefaultCommand(new DriveCommand(drive, 
-            () -> {return Ports.DriverPorts.kTranslationXPort.getFilteredAxis();},
-            () -> {return Ports.DriverPorts.kTranslationYPort.getFilteredAxis();}));
+            () -> kTranslationXPort.getFilteredAxis(),
+            () -> -kRotationPort.getFilteredAxis()));
 
         slowMode.whileTrue(new DriveCommand(drive,
-            () -> Ports.DriverPorts.kTranslationXPort.getFilteredAxis() * kSlowModePercent,
-            () -> Ports.DriverPorts.kTranslationYPort.getFilteredAxis() * kSlowModePercent));
+            () -> kTranslationXPort.getFilteredAxis() * kSlowModePercent,
+            () -> -kRotationPort.getFilteredAxis() * kSlowModePercent));
     }
 }
