@@ -5,16 +5,15 @@ import static frc.robot.Konstants.LauncherConstants.kLauncherMotorConfigs;
 import static frc.robot.Konstants.LauncherConstants.kLauncherRampDown;
 import static frc.robot.Konstants.LauncherConstants.kLauncherRestRate;
 import static frc.robot.Konstants.LauncherConstants.kLauncherQuickRate;
-import static frc.robot.Ports.launcherPorts.kLeftLauncherMotor;
-import static frc.robot.Ports.launcherPorts.kRightLauncherMotor;
+import static frc.robot.Ports.launcherPorts.kLauncherMotor;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig;
-import com.revrobotics.spark.config.SparkBaseConfigAccessor;
-import com.revrobotics.spark.config.SparkMaxConfig;
+// import com.revrobotics.spark.config.SparkBaseConfig;
+// import com.revrobotics.spark.config.SparkBaseConfigAccessor;
+// import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -33,7 +32,7 @@ public class SC25Launcher extends SubsystemBase
     public SC25Launcher()
     {
         //Initialize motor objects.
-        motor = new SparkMax(kLeftLauncherMotor.ID, MotorType.kBrushless);
+        motor = new SparkMax(kLauncherMotor.ID, MotorType.kBrushless);
         motorEncoder = motor.getEncoder();
     }
 
@@ -71,7 +70,7 @@ public class SC25Launcher extends SubsystemBase
 
     public boolean isFullSpeed()
     {
-        return (Math.abs(getMotorSpeed()) < kSpeedTolerance) && (Math.abs(getMotorSpeed()) < kSpeedTolerance);
+        return (Math.abs(getMotorSpeed()) < kSpeedTolerance);
     }
 
     public void setScrapRampRate()
@@ -110,9 +109,12 @@ public class SC25Launcher extends SubsystemBase
 
     public void periodic()
     {
-        SmartDashboard.putNumber("Current Launcher Speed", getMotorSpeed());
-        SmartDashboard.putNumber("Current Target Launcher Speed", getTargetSpeed());
-        SmartDashboard.putBoolean("Launcher Full Speed", isFullSpeed());
+        //SmartDashboard.putNumber("Left Launcher Speed", getLeftMotorSpeed());
+        //SmartDashboard.putNumber("Right Launcher Speed", getRightMotorSpeed());
+
+        //SmartDashboard.putNumber("Left Launcher Target Speed", getLeftTargetSpeed());
+        //SmartDashboard.putNumber("Right Launcher Target Speed", getRightTargetSpeed());
+        //SmartDashboard.putBoolean("Launcher Full Speed", isFullSpeed());
     }
     
     public void testPeriodic()
