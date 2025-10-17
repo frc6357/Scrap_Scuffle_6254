@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.autos.TaxiAuto;
 import frc.robot.bindings.CommandBinder;
 import frc.robot.bindings.SC25IntakeBinder;
 import frc.robot.bindings.SC25LauncherBinder;
@@ -52,7 +53,10 @@ public class RobotContainer extends Robot
     private List<CommandBinder> buttonBinders = new ArrayList<CommandBinder>();
 
     // An option box on shuffleboard to choose the auto path
-    //SendableChooser<Command> autoCommandSelector = new SendableChooser<Command>();
+    SendableChooser<Command> autoChooser = new SendableChooser<Command>();
+
+    // Initializing Autons
+    private final TaxiAuto m_taxiAuto = new TaxiAuto(m_drive);
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
@@ -63,6 +67,9 @@ public class RobotContainer extends Robot
         configurePathPlannerCommands();
         // Configure the trigger bindings
         configureButtonBindings();
+
+        autoChooser.setDefaultOption("Taxi Auto", m_taxiAuto);
+        SmartDashboard.putData(autoChooser);
     }
 
     /**
@@ -131,10 +138,10 @@ public class RobotContainer extends Robot
      *
      * @return the command to run in autonomous
      */
-    // public Command getAutonomousCommand()
-    // {
-    //     return Commands.sequence(Commands.waitSeconds(0.01), autoCommandSelector.getSelected());
-    // }
+    public Command getAutonomousCommand()
+    {
+        return Commands.sequence(Commands.waitSeconds(0.01), autoChooser.getSelected());
+    }
 
     public void testPeriodic()
     {

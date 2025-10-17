@@ -1,28 +1,23 @@
 package frc.robot.bindings;
 
 import java.util.Optional;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Ports;
+import frc.robot.commands.LaunchCommand;
+import frc.robot.commands.LauncherStopCommand;
 import frc.robot.subsystems.SC25Launcher;
 
 public class SC25LauncherBinder implements CommandBinder
 {
     Optional<SC25Launcher> launcherSubsystem;
 
-    Trigger intakeDriverButton;
-    Trigger intakeOperatorButton;
-    Trigger launchScrapButton;
-
+    Trigger launchOperatorButton;
 
     public  SC25LauncherBinder(Optional<SC25Launcher> launcherSubsystem)
     {
         this.launcherSubsystem = launcherSubsystem;
 
-        this.intakeDriverButton = Ports.DriverPorts.kIntake.button;
-        this.intakeOperatorButton = Ports.OperatorPorts.kIntake.button;
-        this.launchScrapButton = Ports.OperatorPorts.kLaunchScrap.button;
-        //readyShoot = kDriverShoot.button;
+        this.launchOperatorButton = Ports.OperatorPorts.kLaunchScrap.button;
     }
 
     @Override
@@ -35,7 +30,7 @@ public class SC25LauncherBinder implements CommandBinder
         }
         SC25Launcher launcher = launcherSubsystem.get();
 
-        launchScrapButton.onTrue(new InstantCommand(() -> launcher.setRunning(true)));
-        launchScrapButton.onFalse(new InstantCommand(() -> launcher.setRunning(false)));
+        launchOperatorButton.whileTrue(new LaunchCommand(launcher));
+        launchOperatorButton.onFalse(new LauncherStopCommand(launcher));
     }
 }

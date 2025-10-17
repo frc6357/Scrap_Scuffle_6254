@@ -22,90 +22,99 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 public class SC25Launcher extends SubsystemBase
 {
     // Create memory objects for both motors for public use.
-    SparkMax motor;
+    SparkMax launcherMotor;
     RelativeEncoder motorEncoder;
     double targetSpeed;
     boolean running;
-    private double currentRampRate = 0.0;
+    //private double currentRampRate = 0.0;
 
     // Constructor for launcher subsystem.
     public SC25Launcher()
     {
         //Initialize motor objects.
-        motor = new SparkMax(kLauncherMotor.ID, MotorType.kBrushless);
-        motorEncoder = motor.getEncoder();
+        launcherMotor = new SparkMax(kLauncherMotor.ID, MotorType.kBrushless);
+        motorEncoder = launcherMotor.getEncoder();
     }
 
-    public double getTargetSpeed()
+    public void setIntakeSpeed(double launcherSpeed)
     {
-        return targetSpeed;
+        launcherMotor.set(launcherSpeed);
     }
 
-    public void setRunning(boolean running)
+    // Method to return motor speed, if requested.
+    public double getMotorSpeed ()
     {
-        this.running = running;
-    }
-
-    public boolean getRunning()
-    {
-        return running;
-    }  
-
-    /**
-     * Sets the speed of the launcher
-     * @param speedLeft The speed to set for left. Value should be between -1.0 and 1.0.
-     * @param speedRight The speed to set for right. Value should be between -1.0 and 1.0.
-     */
-    public void setLauncherSpeed (double speed)
-    {
-        targetSpeed = speed;
-        motor.set(speed);
-    }
-
-    //Return motor speeds
-    public double getMotorSpeed()
-    {
-        return motor.get();
-    }
-
-    public boolean isFullSpeed()
-    {
-        return (Math.abs(getMotorSpeed()) < kSpeedTolerance);
-    }
-
-    public void setScrapRampRate()
-    {
-        currentRampRate = 1.2; // This value MUST match the rate from Konstants.
-        motor.configure(kLauncherMotorConfigs, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-    }
-
-    public void setRestingRampRate()
-    {
-        currentRampRate = 1.0; // This value MUST match the rate from Konstants.
-        motor.configure(kLauncherRestRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-    }
-    public void setQuickRampRate()
-    {
-        currentRampRate = 0.4; // This value MUST match the rate from Konstants.
-        motor.configure(kLauncherQuickRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-    }
-
-    public void rampDown()
-    {
-        currentRampRate = 12.0; // This value MUST match the rate from Konstants.
-        motor.configure(kLauncherRampDown, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
-    }
-
-    public double getCurrentRampRate()
-    {
-        return currentRampRate;
+        return launcherMotor.get();
     }
     
-    // Method to stop motors.
+    //Stop motors
     public void stopLauncher()
     {
-        motor.stopMotor();
+        launcherMotor.stopMotor();
     }
+
+    /*
+     * Old launcher stuff
+     */
+
+    // public double getTargetSpeed()
+    // {
+    //     return targetSpeed;
+    // }
+
+    // public void setRunning(boolean running)
+    // {
+    //     this.running = running;
+    // }
+
+    // public boolean getRunning()
+    // {
+    //     return running;
+    // }  
+
+    // /**
+    //  * Sets the speed of the launcher
+    //  * @param speedLeft The speed to set for left. Value should be between -1.0 and 1.0.
+    //  * @param speedRight The speed to set for right. Value should be between -1.0 and 1.0.
+    //  */
+    // public void setLauncherSpeed (double speed)
+    // {
+    //     targetSpeed = speed;
+    //     launcherMotor.set(speed);
+    // }
+
+    // public boolean isFullSpeed()
+    // {
+    //     return (Math.abs(getMotorSpeed()) < kSpeedTolerance);
+    // }
+
+    // public void setScrapRampRate()
+    // {
+    //     currentRampRate = 1.2; // This value MUST match the rate from Konstants.
+    //     launcherMotor.configure(kLauncherMotorConfigs, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // }
+
+    // public void setRestingRampRate()
+    // {
+    //     currentRampRate = 1.0; // This value MUST match the rate from Konstants.
+    //     launcherMotor.configure(kLauncherRestRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // }
+    // public void setQuickRampRate()
+    // {
+    //     currentRampRate = 0.4; // This value MUST match the rate from Konstants.
+    //     launcherMotor.configure(kLauncherQuickRate, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // }
+
+    // public void rampDown()
+    // {
+    //     currentRampRate = 12.0; // This value MUST match the rate from Konstants.
+    //     launcherMotor.configure(kLauncherRampDown, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+    // }
+
+    // public double getCurrentRampRate()
+    // {
+    //     return currentRampRate;
+    // }
 
     public void periodic()
     {
