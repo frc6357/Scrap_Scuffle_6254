@@ -36,7 +36,7 @@ public class SC25Launcher extends SubsystemBase
         motorEncoder = launcherMotor.getEncoder();
     }
 
-    public void setIntakeSpeed(double launcherSpeed)
+    public void setLauncherSpeed(double launcherSpeed)
     {
         launcherMotor.set(launcherSpeed);
     }

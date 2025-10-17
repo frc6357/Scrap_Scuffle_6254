@@ -17,7 +17,7 @@ public class LauncherStopCommand extends Command
     // This method will run when the command becomes the highest priority in queue.
     public void initialize()
     {
-        launcher.setIntakeSpeed(kStopSpeed);
+        launcher.setLauncherSpeed(kStopSpeed);
     }
 
     // This method will run when the command is finished.

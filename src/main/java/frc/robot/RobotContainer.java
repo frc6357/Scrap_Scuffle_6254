@@ -56,7 +56,7 @@ public class RobotContainer extends Robot
     SendableChooser<Command> autoChooser = new SendableChooser<Command>();
 
     // Initializing Autons
-    private final TaxiAuto m_taxiAuto = new TaxiAuto(m_drive);
+    //private final TaxiAuto m_taxiAuto = new TaxiAuto(m_drive);
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() 
@@ -68,7 +68,7 @@ public class RobotContainer extends Robot
         // Configure the trigger bindings
         configureButtonBindings();
 
-        autoChooser.setDefaultOption("Taxi Auto", m_taxiAuto);
+        //autoChooser.setDefaultOption("Taxi Auto", m_taxiAuto);
         SmartDashboard.putData(autoChooser);
     }
 

@@ -17,7 +17,7 @@ public class LaunchCommand extends Command
     // This method will run when the command becomes the highest priority in queue.
     public void initialize()
     {
-        launcher.setIntakeSpeed(kLauncherSpeed);
+        launcher.setLauncherSpeed(kLauncherSpeed);
     }
 
     // This method will run when the command is finished.

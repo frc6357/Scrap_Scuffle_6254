@@ -61,7 +61,7 @@ public final class Konstants
         }
 
         /* PID values for arm motion control */
-        public static final double kArmP = 0.1;  //0.3
+        public static final double kArmP = 0.3;  //0.3
         public static final double kArmI = 0.0; //0.0002
         public static final double kArmD = 0.0; //2.1
         public static final double kArmV = 0.0; // 1/5767
@@ -69,7 +69,7 @@ public final class Konstants
 
         /* Maximum motion limits for motion control */
         public static final double kArmCruiseVel = .15; // rot/sec
-        public static final double kArmTargetAccel = .45; // rot/sec^2
+        public static final double kArmTargetAccel = .75; // rot/sec^2
         public static final double kArmTargetJerk = 4.5; // rot/sec^3
         public static final double kArmTolerance = 2.5; // degrees
 
@@ -78,7 +78,7 @@ public final class Konstants
         public static final boolean kJoystickReversed = true;
 
         /* Values for default motor speed*/
-        public static final double kArmSpeed = 0.1; // rot/sec; often only used in Joystick control; Button control uses PID
+        public static final double kArmSpeed = 0.1; //.1 // rot/sec; often only used in Joystick control; Button control uses PID
         public static final double kRollerSpeed = 0.7;
         public static final double kRollerSlowSpeed = 0.50;
         public static final double kRollerSuperSpeed = 0.8;
