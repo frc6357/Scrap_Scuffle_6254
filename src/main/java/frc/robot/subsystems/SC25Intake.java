@@ -71,7 +71,7 @@ public class SC25Intake extends SubsystemBase
             .allowedClosedLoopError(0.1);
         armConfig
             .idleMode(IdleMode.kBrake)
-            .smartCurrentLimit(80);
+            .smartCurrentLimit(40);
         
         mPID = armMotor.getClosedLoopController();
         mEncoder = armMotor.getEncoder();

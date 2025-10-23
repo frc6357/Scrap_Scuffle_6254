@@ -69,7 +69,7 @@ public final class Konstants
 
         /* Maximum motion limits for motion control */
         public static final double kArmCruiseVel = .15; // rot/sec
-        public static final double kArmTargetAccel = .75; // rot/sec^2
+        public static final double kArmTargetAccel = .65; // rot/sec^2
         public static final double kArmTargetJerk = 4.5; // rot/sec^3
         public static final double kArmTolerance = 2.5; // degrees
 
@@ -78,7 +78,7 @@ public final class Konstants
         public static final boolean kJoystickReversed = true;
 
         /* Values for default motor speed*/
-        public static final double kArmSpeed = 0.1; //.1 // rot/sec; often only used in Joystick control; Button control uses PID
+        public static final double kArmSpeed = 0.3; //.1 // rot/sec; often only used in Joystick control; Button control uses PID
         public static final double kRollerSpeed = 0.7;
         public static final double kRollerSlowSpeed = 0.50;
         public static final double kRollerSuperSpeed = 0.8;
@@ -88,10 +88,10 @@ public final class Konstants
         public static final CurrentLimitsConfigs kIntakeCurrentLimitsConfigs = 
           new CurrentLimitsConfigs() // Limits in Amps; time in seconds
               .withStatorCurrentLimitEnable(true)
-              .withStatorCurrentLimit(100)
+              .withStatorCurrentLimit(50)
               .withSupplyCurrentLimitEnable(true)
-              .withSupplyCurrentLimit(80)
-              .withSupplyCurrentLowerLimit(50)
+              .withSupplyCurrentLimit(40)
+              .withSupplyCurrentLowerLimit(20)
               .withSupplyCurrentLowerTime(0.3);
     }
 
